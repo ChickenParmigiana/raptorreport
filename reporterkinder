@@ -1,0 +1,40 @@
+import tkinter as tk
+from tkinter import messagebox
+
+# List of dimensions based on the schematic and report
+dimensions = [
+    "SH3/D3 Surface Finish 0.4um Ra",
+    "SH2/A7 2XØ6.00±0.25",
+    # ... add all other dimensions ...
+]
+
+# Function to show the filled report
+def show_report(entries):
+    report = ""
+    for dimension, entry in entries.items():
+        report += f"{dimension}: {entry.get()}\n"
+    messagebox.showinfo("Inspection Report", report)
+    # Here you can also save the report to a file if needed
+
+# Setting up the main window
+root = tk.Tk()
+root.title("Inspection Report Filler")
+
+entries = {}
+
+# Creating input fields for each dimension
+for dimension in dimensions:
+    frame = tk.Frame(root)
+    frame.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
+
+    tk.Label(frame, text=dimension, width=30, anchor='w').pack(side=tk.LEFT)
+    entry = tk.Entry(frame)
+    entry.pack(side=tk.RIGHT, expand=tk.YES, fill=tk.X)
+    entries[dimension] = entry
+
+# Submission button
+submit_button = tk.Button(root, text='Show Report', command=lambda: show_report(entries))
+submit_button.pack(side=tk.BOTTOM, padx=5, pady=5)
+
+# Run the GUI loop
+root.mainloop()
